@@ -1,0 +1,59 @@
+div{
+	border: 1px solid #cdcdcd; 
+	line-height: 35px;
+	min-height: 35px;
+	margin: 10px;
+	width: 400px;
+	text-align: center;
+	padding: 5px;
+}
+div p{
+	margin: 0; 
+}
+div p.p_padding{
+	padding: 15px 0 10px ;
+}
+.btn{
+	width: 100px;
+	text-align: center;
+	line-height: 30px;
+	background: #544a4a;
+	border-radius: 5px;
+	text-decoration: none;
+	padding: 8px;
+	color: #fff;
+	margin: 15px auto;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	outline: none;
+	clear: both;
+}
+.btn:hover{ 
+	background: #635454; 
+}
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: " ";
+}
+
+.clearfix:after {
+    clear: both;
+}
+.font_red{
+	color: red;
+}
+input{
+	width: 200px;
+	height: 35px;
+	line-height: 35px;
+	padding-left: 5px;
+	outline: none;
+}
+input:focus{
+	border:1px solid #e41313;
+}
+input,label{
+	vertical-align: middle;
+}

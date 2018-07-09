@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>Learn Vue 02</title>
+	<script src="Script/jquery-1.8.2.min.js"></script>
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="Css/default.css">
+</head>
+<body>
+	<div id="app">		
+		<p>{{message}}</p>
+		<input v-model="message" />
+		<button class="btn" v-on:click="message = 'zhoushujie'">change it</button>
+	</div>
+	<script type="text/javascript">
+		var obj={ message:"zoushujie" };
+		//Object.freeze(obj);
+		var app=new Vue({
+			el:"#app",
+			data:obj,
+			watch:{
+				message(newValue,oldValue){
+					console.log("This is Watch,message newValue is "+newValue);
+					console.log("This is Watch,message oldValue is "+oldValue);
+				}
+			},
+			beforeCreate:function(){
+				console.log('This is BeforeCreate'); 
+			},
+			created:function(){
+				console.log("This is Created, message is "+this.message);
+			},
+			beforeUpdate:function(){
+				console.log("This is BeforeUpdate,message is "+this.message)
+			},
+			updated:function(){
+				console.log("This is Updated,message is "+this.message);
+			},
+			beforeDestroy:function(){
+				console.log("This is beforeDestroy,message is "+this.message);
+			},
+			destroy:function(){
+				console.log("This is destroy,message is "+this.message);
+			}
+		});
+		app.$destroy();
+		/*app.$watch("message",function(newValue,oldValue){
+			console.log(newValue);
+			console.log(oldValue);
+		})*/
+	</script>
+</body>
+</html>

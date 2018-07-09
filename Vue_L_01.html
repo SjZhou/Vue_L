@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>学习Vue</title>
+	<script src="Script/jquery-1.8.2.min.js"></script>	
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	 <link rel="stylesheet" type="text/css" href="Css/default.css">
+</head>
+<body>
+	<!--Vue 001-->
+	<div id='app'>
+		{{message}}
+	</div>
+
+
+	<!--Vue 002-->
+	<div id="app-2">
+	  <span v-bind:title="message">
+	    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+	  </span>
+	</div>
+
+
+	<!--Vue 003-->
+	<div id="app-3" class='clearfix'>
+	  <p v-if="seen">现在你看到我了 -- if</p>
+	  <p v-else="seen">现在你看到我了-- else</p>
+	  <a href="javascript:void(0)" class='btn' id="btn_true_false">改为false</a>
+	</div>
+
+
+	<!--Vue 004-->
+	<div id="app-4">
+		<ol>
+			<li v-for="todo in todos" v-bind:title="todo.title"  v-bind:data-id="todo.id">
+				{{todo.text}}
+			</li>
+		</ol>
+		 <a href="javascript:void(0)" class='btn' id="btn_push">Push</a>
+	</div>
+
+	<!--Vue 005-->
+	<div id="app-5">
+		<p>{{ msg }}</p>
+		<a href="javascript:void(0)" class='btn' v-on:click='reverseMsg'>逆转消息</a>
+	</div>
+
+	<!--Vue 006-->
+	<div id="app-6">
+		<p>{{message}}</p>
+		<input v-model="message"/>
+	</div>
+
+
+	<!--Vue 007
+	<div id="app-7"> 
+		<ol>
+			<todo-item></todo-item>
+		</ol>
+	</div>-->
+
+
+	<!--Vue 008-->
+	<div id="app-8"> 
+		<ol>
+			<todo-item v-for="item in grocerylist" v-bind:todo='item' v-bind:keyd="item.id"></todo-item>
+		</ol>
+	</div>
+
+
+	<script type="text/javascript">
+		<!--Vue 001-->
+		var app = new Vue({
+		  el: '#app',
+		  data: {
+		    message: 'Hello Vue!'
+		  }
+		});
+
+
+		<!--Vue 002-->
+		var app2=new Vue({
+			el:"#app-2",
+			data:{
+				message:'xl页面加载于 ' + new Date().toLocaleString()
+			}
+		});
+
+
+		<!--Vue 003-->
+		var app3=new Vue({
+			el:"#app-3",
+			data:{
+				seen:true
+			}
+		});
+		$("#btn_true_false").click(function(){
+			var app_true_false=app3.seen;
+			if(app_true_false){
+				app3.seen=false;
+				$("#btn_true_false").text("改为 true");
+			}
+			else{
+				app3.seen=true;
+				$("#btn_true_false").text("改为false");
+			}
+		});
+
+
+		<!--Vue 004-->
+		var app4=new Vue({
+			el:"#app-4",
+			data:{
+				todos:[
+					{text:"learning javascript",title:"learning javascript's title",id:1},
+					{text:"learning html",title:"learning html's title",id:2},
+					{text:"learning html5",title:"learning html5's title",id:3}
+				]
+			}
+		});
+		$("#btn_push").click(function(){
+			app4.todos.push({text:"learning Vue",title:"learning Vue's title",id:4}); 
+		});	
+
+		<!--Vue 005-->
+		var app5=new Vue({
+			el:"#app-5",
+			data:{
+				msg:"Hello Vue.js!"
+			},
+			methods:{
+				reverseMsg:function(){ 
+					this.msg=this.msg.split('').reverse().join('');
+				} 
+			}
+		});
+
+		<!--Vue 006-->
+		var app6=new Vue({
+			el:"#app-6",
+			data:{
+				message:"hello Vue.js!"
+			}
+		});
+
+		/*
+		<!--Vue 007-->
+		Vue.component('todo-item',{
+			template:"<li>这是一个代办项</li>"
+		});
+		var app7=new Vue({
+			el:"#app-7"
+		});
+		*/
+		<!--Vue 008-->
+		Vue.component('todo-item',{
+			props:['todo','keyd'],
+			template:"<li v-bind:title='keyd'>{{todo.text}}</li>"
+		});
+
+		var app8=new Vue({
+			el:"#app-8",
+			data:{
+				grocerylist:[
+					{text:'蔬菜',id:1},
+					{text:'肉类',id:2},
+					{text:'水果',id:3}
+				]
+			}
+		});
+	</script>
+</body>
+</html> 

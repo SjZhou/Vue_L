@@ -1,0 +1,186 @@
+<html>
+<head>
+	<title>Learn Vue 05</title>
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 500px;
+			height: 35px;
+			border:1px solid #cdcdcd;
+			margin: 15px 10px;
+			line-height: 35px;			
+			padding-left: 5px;
+		}
+		.active{
+			background: #f7efef;
+		}
+		.text-danger{
+			border-color: red;
+		}
+		div p{
+			height: 100%; 
+		}
+	</style>
+</head>
+<body>
+	<!--绑定 HTML Class-->
+	<div id="app" class="static" v-bind:class="{active:isActive}"> 
+	</div>
+
+	<div id="app-2" class="static" :class="{active:isActive,'text-danger':hasError}"> 
+	</div>
+
+	<div id="app-3" :class="classObject"> 
+	</div>
+
+	<div id="app-4" :class="classObject"></div>
+
+	<div id="app-5" class="static" :class="[activeClass,errClass]"></div>
+
+	<div id="app-6" class="static" :class="[isActive?'active':'',errClass]"></div>
+
+	<div id="app-7" class="static" :class="[{active:isActive},errClass]"></div>
+
+	<div id="app-8">
+		<my-component class="baz fuu"></my-component>
+	</div>
+
+	<div id="app-9">
+		<my-component :class="{baz:isActive,fuu:isStatic}"></my-component>
+	</div>
+
+
+	<!--绑定内联样式-->
+	<div id="app-10" v-bind:style="{color:colorStyle,'font-size':fontSize+'px'}">
+		zhou
+	</div>
+
+	<div id="app-11" v-bind:style="styleObject">
+		xiu
+	</div>
+
+	<div id="app-12" :style='[baseStyleObject,activeStyleObject]'>
+		uil
+	</div>
+
+	<script type="text/javascript">
+		var app=new Vue({
+			el:"#app",
+			data:{
+				isActive:true
+			}
+		});
+
+		var app2=new Vue({
+			el:"#app-2",
+			data:{
+				isActive:false,
+				hasError:true
+			}
+		});
+
+		var app3=new Vue({
+			el:"#app-3",
+			data:{
+				classObject:{
+					active:true,
+					'text-danger':true
+				}
+			}
+		});
+
+		var app4=new Vue({
+			el:"#app-4",
+			data:{
+				isActive:true,
+				hasError:null
+			},
+			computed:{
+				classObject:function(){
+					return{
+						active:this.isActive&&!this.hasError,
+						'text-danger':this.hasError&&this.hasError 
+					}
+				}
+			}
+		}); 
+
+		var app5=new Vue({
+			el:"#app-5",
+			data:{
+				activeClass:"active",
+				errClass:"text-danger"
+			}
+		});
+
+		var app6=new Vue({
+			el:"#app-6",
+			data:{
+				isActive:true,
+				errClass:"text-danger"
+			}
+		});
+
+		var app7=new Vue({
+			el:"#app-7",
+			data:{
+				isActive:true,
+				errClass:"text-danger"
+			}
+		});
+
+
+		Vue.component('my-component',{
+			template:"<p class='bar foo'>Hi</p>"
+		});
+		var app8=new Vue({
+			el:"#app-8"
+		});
+
+		var app9=new Vue({
+			el:"#app-9",
+			data:{
+				isActive:true,
+				isStatic:false
+			}
+		});
+
+		var app10=new Vue({
+			el:"#app-10",
+			data:{
+				colorStyle:'red',
+				fontSize:20
+			}
+		});	
+
+		var app11=new Vue({
+			el:"#app-11",
+			data:{
+				styleObject:{
+					color:'red',
+					'font-size':20
+				}
+			}
+		});
+
+		var app12=new Vue({
+			el:"#app-12",
+			data:{
+				baseStyleObject:{
+					color:'red',
+					'font-size':20
+				},
+				activeStyleObject:{
+					border:'1px solid red',
+					background:"#f7efef"
+				}
+			}
+		});
+	</script>
+</body>
+</html>
