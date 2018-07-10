@@ -48,6 +48,21 @@
 		</ul>
 	</div>
 
+	<div id="app-6">
+		<ul>
+			<li v-for="item in items">
+				{{item.message}}
+			</li>
+		</ul>
+		<a href="javascript:void(0)" class="btn" @click="PushArray" title="向数组的末尾添加一个或多个元素，并返回新的长度">push</a>
+		<a href="javascript:void(0)" class="btn" @click="PopArray" title="删除数组的最后一个元素并返回删除的元素">pop</a>
+		<a href="javascript:void(0)" class="btn" @click="ShiftArray" title="把数组的第一个元素从其中删除，并返回第一个元素的值">shift</a>
+		<a href="javascript:void(0)" class="btn" @click="UnshiftArray" title="向数组的开头添加一个或更多元素，并返回新的长度">unshift</a>
+		<a href="javascript:void(0)" class="btn" @click="SpliceArray" title="用于插入、删除或替换数组的元素">splice</a>
+		<a href="javascript:void(0)" class="btn" @click="SortArray" title="用于对数组的元素进行排序 -- 默认排序顺序为按字母升序">sort</a>
+		<a href="javascript:void(0)" class="btn" @click="ReverseArray" title="用于颠倒数组中元素的顺序">reverse</a>
+	</div>
+
 	
 
 	<script type="text/javascript">
@@ -103,6 +118,55 @@
 					lastname:"zhou",
 					age:26
 				}
+			}
+		});
+
+		var app6=new Vue({
+			el:"#app-6",
+			data:{
+				items:[
+					{message:"bar"},
+					{message:"foo"}
+				]
+			},
+			methods:{
+				PushArray:function(){
+					var i=this.items.push({message:"baz"});
+					console.log(i);
+				},
+				PopArray:function(){
+					var obj=this.items.pop();
+					console.log(obj);
+				},
+				ShiftArray:function(){
+					var obj=this.items.shift();
+					console.log(obj);
+				},
+				UnshiftArray:function(){
+					var i=this.items.unshift({message:"baa"},{message:"bab"});
+					console.log(i);
+				},
+				SpliceArray:function(){
+					//splice(index,howmany,item1...itemX)
+					//index 必选 从下标为index处 添加/删除/替换元素 必须为数字
+					//howmany 必选 规定删除多少个元素，可为0
+					//item1...itemX 可选 添加的元素
+					
+					this.items.splice(0,1,{message:"baa"},{message:"bab"}); //将下标为0的元素处 替换1个元素为 {message:"baa"},{message:"bab"} 
+					//this.items.splice(0,1); //将下标为0的元素处 删除1个元素
+					//this.items.splice(0,0,{message:"baa"}); //将下标为0的元素处 插入元素{message:"baa"}
+				},
+				SortArray:function(){
+					this.items.sort(); 
+					console.log(this.items);
+					//默认是升序
+					//数字排序 升序：sort(function(a,b){return a-b;})  降序：sort(function(a,b){return b-a;})
+					//字母降序：sort().reverse()
+				},
+				ReverseArray:function(){
+					this.items.reverse();
+				}
+
 			}
 		});
 	</script>

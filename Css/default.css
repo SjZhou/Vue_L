@@ -27,7 +27,7 @@ div p.p_padding{
 	cursor: pointer;
 	font-size: 16px;
 	outline: none;
-	clear: both;
+	clear: both; 
 }
 .btn:hover{ 
 	background: #635454; 
