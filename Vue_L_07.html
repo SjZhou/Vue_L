@@ -48,7 +48,21 @@
 		</ul>
 	</div>
 
-	
+	<div id="app-6">
+		<ul>
+			<li v-for="item in items" v-bind:key='item.id'>{{item.message}}</li>
+		</ul>
+	</div>
+
+	<div id="app-7">
+		<ul>
+			<li v-for="item in items">
+				{{item.message}}
+			</li>
+		</ul>
+
+		<a href="javascript:void(0)" class="btn" @click="MatchItem">替换数组</a>
+	</div>
 
 	<script type="text/javascript">
 		var app=new Vue({
@@ -102,6 +116,35 @@
 					firstname:"shujie",
 					lastname:"zhou",
 					age:26
+				}
+			}
+		});
+
+		var app6=new Vue({
+			el:"#app-6",
+			data:{
+				items:[
+					{id:1,message:"bar"},
+					{id:2,message:"foo"},
+					{id:3,message:"noz"}
+				]
+			}
+		});
+
+		var app7=new Vue({
+			el:"#app-7",
+			data:{
+				items:[
+					{message:"bar"},
+					{message:"foo"}
+				]
+			},
+			methods:{
+				MatchItem:function(){
+					console.log(app7.items);
+					app7.items=app7.items.filter(function(item){
+						return item.message.match(/foo/);
+					});
 				}
 			}
 		});
