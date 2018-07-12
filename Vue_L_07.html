@@ -74,14 +74,64 @@
 	<div id="app-8">
 		<ul>
 			<li v-for="item in items">
-				{{item.message}}
+				{{item}}
 			</li>
 		</ul>
 
 		<a href="javascript:void(0)" class="btn" @click="ChangeValue">change first value</a>
 	</div>
 
-	 
+	<div id="app-9">
+		<ul>
+			<li v-for="value in obj">{{value}}</li>
+		</ul>
+		<a href="javascript:void(0)" class="btn" @click="AddNewValue">add new value</a>
+	</div>
+
+	<div id="app-10">
+		<ul>
+			<li v-for="value in obj">{{value}}</li>
+		</ul>
+		<a href="javascript:void(0)" class="btn" @click="AddNewValues">add new values</a>
+	</div>  
+
+	<div id="app-11">
+		<ul>
+			<li v-for="num in evenNumber">{{num}}</li>
+		</ul>
+	</div>
+
+	<div id="app-12">
+		<ul>
+			<li v-for="num in even(numbers)">{{num}}</li>
+		</ul>
+	</div>
+
+	<div id="app-13">
+		<ul>
+			<li v-for="item in items" v-if="!item.isDel">
+				{{item.msg}}
+			</li>
+		</ul>	
+	</div>
+
+	<div id="app-14">
+		<ul v-if="items.length">
+			<li v-for="item in items">
+				{{item.msg}}
+			</li>
+		</ul>
+		<p v-else>no items</p>
+	</div>
+
+	<div id="app-15">
+		<ul>
+			<my-component v-for="(item,index) in items" v-bind:item='item' v-bind:key='item.id' v-bind:index="index"></my-component>
+		</ul>
+	</div>
+
+
+
 	<script type="text/javascript">
 		var app=new Vue({
 			el:"#app",
@@ -142,9 +192,9 @@
 			el:"#app-6",
 			data:{
 				items:[ 
-					{id:1,message:"bar"},
-					{id:2,message:"foo"},
-					{id:3,message:"noz"}
+					{id:3,message:"bar"},
+					{id:1,message:"foo"},
+					{id:2,message:"noz"}
 				]
 			},
 			methods:{				
@@ -175,7 +225,7 @@
 					//this.items.splice(0,0,{message:"baa"}); //将下标为0的元素处 插入元素{message:"baa"}
 				},
 				SortArray:function(){
-					this.items.sort(); 
+					this.items=this.items.sort(); 
 					console.log(this.items);
 					//默认是升序
 					//数字排序 升序：sort(function(a,b){return a-b;})  降序：sort(function(a,b){return b-a;})
@@ -208,21 +258,135 @@
 		var app8=new Vue({
 			el:"#app-8",
 			data:{
-				items:[
-					{message:"bar"},
-					{message:"baa"},
-					{message:"bab"}
-				]
+				items:["bar","baa","bab"]
 			},
 			methods:{
 				ChangeValue:function(){
 					//app8.items[0]="zhou"; // 不是响应性的
-					Vue.set(this.items,0,'X');					
-					//app8.items.splice(0,1,'bbb');
+					//Vue.set(this.items,0,'X');//响应性的 				
+					this.items.splice(0,1,'bbb');//响应性的
 					console.log(this.items[0]);
 				}
 			}
 		});  
+
+		var app9=new Vue({
+			el:"#app-9",
+			data:{
+				obj:{
+					id:1,
+					name:'noz',
+					age:1993
+				}
+			},
+			methods:{
+				AddNewValue:function(){
+					//this.obj.day="028"; // 不是响应性的
+					Vue.set(this.obj,"day",'028'); //响应性的
+					console.log(this.obj.day);
+				}
+			}
+		});
+
+		var app10=new Vue({
+			el:"#app-10",
+			data:{
+				obj:{
+					name:"noz",
+					sex:1,
+					age:24
+				}
+			},
+			methods:{
+				AddNewValues:function(){
+					// 不是响应性的
+					/*
+					Object.assign(this.obj,{
+						year:2018,
+						day:1201
+					});
+					*/
+					/*不是响应的 依赖插件<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"><script>*/
+					/*_.extend(this.obj,{
+						year:2018,
+						day:1201
+					});
+					*/
+					this.obj=Object.assign({},this.obj,{
+						year:2018,
+						day:1201
+					});
+					console.log(this.obj);
+				}
+			}
+		});
+
+		var app11=new Vue({
+			el:"#app-11",
+			data:{
+				numbers:[1,2,3,4,5,6,7,8,9,10,11,12]
+			},
+			computed:{
+				evenNumber:function(){
+					return this.numbers.filter(function(number){
+						return number%2===0;
+					})
+				}
+			}
+		});
+
+		var app12=new Vue({
+			el:"#app-12",
+			data:{
+				numbers:[1,2,3,4,5,6,7,8,9,10,11,12,13]
+			},
+			methods:{
+				even:function(nums){
+					return nums.filter(function(num){
+						return num%2===0;
+					})
+				}
+			}
+		});
+
+		var app13=new Vue({
+			el:"#app-13",
+			data:{
+				items:[
+					{msg:"first msg",isDel:0},
+					{msg:"second msg",isDel:1},
+					{msg:"third msg",isDel:0}
+				]
+			}
+		});
+
+		var app14=new Vue({
+			el:"#app-14",
+			data:{
+				items:[
+					{msg:"a"},
+					{msg:"b"},
+					{msg:"c"},
+					{msg:"d"}
+				]
+			}
+		});
+
+		Vue.component("my-component",{
+			props:['item'],
+			template:"<li>{{item.msg}}</li>"
+		});
+
+		var app15=new Vue({
+			el:"#app-15",
+			data:{
+				items:[
+					{id:1,msg:"abc"},
+					{id:2,msg:"def"},
+					{id:3,msg:"ghi"}
+				]
+			}
+		});
 	</script>
 </body>
 </html>
