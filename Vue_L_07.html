@@ -130,6 +130,16 @@
 		</ul>
 	</div>
 
+	<div id="app-16">
+		<form v-on:submit.prevent="AddNewToDo">
+			<label for="new-todo">Add a todo</label>
+			<input v-model="nextTodoText" id="new-todo" placeholder="eg.Feed a Cat"/> 
+			<button class="btn">Add</button>
+		</form>
+		<ul>
+			<li is="todo-item" v-for="(todo,index) in todos" v-bind:key="todo.id" v-bind:title="todo.title" v-on:remove="todos.splice(index,1)"></li>
+		</ul>
+	</div>
 
 
 	<script type="text/javascript">
@@ -385,6 +395,33 @@
 					{id:2,msg:"def"},
 					{id:3,msg:"ghi"}
 				]
+			}
+		});
+
+
+		Vue.component("todo-item",{
+			props:["title"],
+			template:"<li>{{title}}<button v-on:click=\"$emit('remove')\">Remove</button></li>"
+		})
+		var app16=new Vue({
+			el:"#app-16",
+			data:{
+				nextTodoText:"",
+				todos:[
+					{id:1,title:"Do the dish"},
+					{id:2,title:"Take out the trash"},
+					{id:3,title:"Mow the lawn"}
+				],
+				nextTodoId:4
+			},
+			methods:{
+				AddNewToDo:function(){
+					this.todos.push({
+						id:this.nextTodoId,
+						title:this.nextTodoText
+					});
+					this.nextTodoText="";
+				}
 			}
 		});
 	</script>
