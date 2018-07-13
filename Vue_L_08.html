@@ -2,9 +2,24 @@
 <html>
 <head>
 	<meta charset='utf-8'>
-	<title></title>
+	<title>Learn Vue 08</title>
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="Css/default.css"/>
 </head>
 <body>
+	<div id="app">
+		<button class="btn" @click="counter +=1">Add 1</button>
+		<p>The button above has been clicked <span style='color:red'>{{counter}} </span> times.</p>
+	</div>
 
+	<script type="text/javascript">
+		var app=new Vue({
+			el:"#app",
+			data:{
+				counter:0
+			}
+		});
+	</script>
 </body>
 </html>
