@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>Learn Vue 09</title>
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="Css/default.css"/>	
+</head>
+<body>
+	<h1>表单输入绑定</h1>
+
+	<div id="app"> 
+		<p>Message is <span style="color:red;">{{message}}</span></p>
+		<input v-model='message' />
+		<a href="javascript:void(0)" class="btn" @click="GetMessage">获取message</a>
+	</div>
+
+	<div id="app-2">
+		<span>Multiline message is:</span>
+		<p  style="white-space: pre-line;color:red;">{{message}}</p>
+		<textarea v-model="message"></textarea>
+		<a href="javascript:void(0)" class="btn" @click="GetMessage">获取message</a>
+	</div>
+
+	<script type="text/javascript">
+		var app=new Vue({
+			el:"#app",
+			data:{
+				message:""
+			},
+			methods:{
+				GetMessage:function(){
+					alert("The message is: "+this.message);
+				}
+			}
+		});
+
+		var app2=new Vue({
+			el:"#app-2",
+			data:{
+				message:""
+			},
+			methods:{
+				GetMessage:function(){
+					alert("The Multiline message is: "+this.message);
+				}
+			}
+		});
+	</script>
+</body>
+</html>
