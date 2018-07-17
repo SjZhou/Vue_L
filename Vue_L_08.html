@@ -58,6 +58,53 @@
 		</p>
 	</div>
 
+	<div id="app-6" style="height:150px;overflow-y:scroll;" v-on:scroll.passive="DoSomething('滚动滚动条')">
+		<p>1</p>
+		<p>2</p>
+		<p>3</p>
+		<p>4</p>
+		<p>5</p>
+		<p>6</p>
+		<p>7</p>
+		<p>8</p>
+		<p>9</p>
+		<p>10</p>
+	</div>
+
+	<div id="app-7">
+		<p>按键修饰符</p>
+		<input v-on:keyup.13="DoSomething('按下了Enter健')" placeholder="按下Enter健"/></br></br>
+		<input v-on:keyup.enter="DoSomething('按下了Enter健')"  placeholder="按下Enter健"/></br></br>
+		<input v-on:keyup.delete="DoSomething('按下了Delete健')"  placeholder="按下Delete健"/></br></br>
+		<input v-on:keyup.tab="DoSomething('按下了Tab健')"  placeholder="按下Tab健"/></br></br>
+		<input v-on:keyup.left="DoSomething('按下了left健')"  placeholder="按下Left健"/></br></br>
+		<input v-on:keyup.right="DoSomething('按下了Right健')"  placeholder="按下Right健"/></br></br>
+		<input v-on:keyup.up="DoSomething('按下了Up健')"  placeholder="按下Up健"/></br></br>
+		<input v-on:keyup.down="DoSomething('按下了Down健')"  placeholder="按下Down健"/></br></br>
+		<input v-on:keyup.space="DoSomething('按下了space健')"  placeholder="按下space健"/></br></br>
+		<input v-on:keyup.esc="DoSomething('按下了esc健')"  placeholder="按下esc健"/> </br></br>
+		<input @keyup.page-down="DoSomething('按下了page-down健')" placeholder="按下page-down健"></br></br>
+		<input @keyup.17="DoSomething('按下了ctrl健')" placeholder="按下ctrl健">
+	</div>
+
+	<div id="app-8">
+		<p>系统修饰键 :.ctrl、.alt、.shift、.meta(田)</p>
+		<!-- 即使 Alt 或 Shift 被一同按下时也会触发 -->
+		<a @click.ctrl="DoSomething('按住 ctrl或ctrl+任意键 点击')" class="btn">按住 ctrl或ctrl+任意键 点击</a><br/><br/>
+		<!-- 有且只有 Ctrl 被按下的时候才触发 -->
+		<a @click.ctrl.exact="DoSomething('只能按住Ctrl点击')" class="btn">只能按住Ctrl点击</a><br/><br/>
+		<!-- 没有任何系统修饰符被按下的时候才触发 -->
+		<a @click.exact="DoSomething('没有任何系统修饰符被按下的时候才触发')" class="btn">没有任何系统修饰符被按下的时候才触发</a>
+	</div>
+
+	<div id="app-9">
+		<p>鼠标按钮修饰符：left、right、middle</p>
+		<a @click.left="DoSomething('鼠标左键点击')" class="btn">鼠标左键点击</a>
+		<a @click.right="DoSomething('鼠标右键点击')" class="btn">鼠标右键点击</a>
+		<a @click.middle="DoSomething('鼠标滚轮点击')" class="btn">鼠标滚轮点击</a>
+	</div>
+
+
 	<script type="text/javascript">
 		var app=new Vue({
 			el:"#app",
@@ -109,6 +156,41 @@
 			}
 		});
 
+		var app6=new Vue({
+			el:"#app-6",
+			methods:{
+				DoSomething:function(msg){
+					alert(msg);
+				}
+			}
+		});
+ 
+		var app7=new Vue({
+			el:"#app-7",
+			methods:{
+				DoSomething:function(msg){
+					alert(msg);
+				}
+			}
+		});
+
+		var app8 =new Vue({
+			el:"#app-8",
+			methods:{
+				DoSomething:function(msg){
+					alert(msg);
+				}
+			}
+		});
+
+		var app9=new Vue({
+			el:"#app-9",
+			methods:{
+				DoSomething:function(msg){
+					alert(msg);
+				}
+			}
+		});
 	</script>
 </body>
 </html>
