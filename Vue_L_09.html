@@ -23,6 +23,47 @@
 		<a href="javascript:void(0)" class="btn" @click="GetMessage">获取message</a>
 	</div>
 
+	<div id="app-9">
+		<p>值绑定</p>
+		<input type="checkbox"  v-model="toggle" true-value="yes" false-value="no" /> <label>{{toggle}}</label>
+		<!-- 
+		//当选中时
+		//vm.toggle === 'yes'
+		// 当没有选中时
+		//vm.toggle === 'no'
+		-->
+
+		<input type="radio" v-model="pick" v-bind:value="a"/><label>{{a}}</label>
+		<!--
+			// 当选中时
+			// vm.pick === vm.a
+		-->
+		<br>
+
+		<select v-model="selected">
+			<option v-bind:value="{id:1,name:'zhou'}">123</option>
+		</select>
+		<!--
+			// 当选中时
+			// typeof vm.selected // => 'object'
+			// vm.selected.number // => 123
+		-->
+	</div>
+
+	<div id="app-10">
+		<p>修饰符</p>		
+		<!--.lazy 在“change”时而非“input”时更新 -->
+		<input v-model.lazy="name"/><label>{{name}}</label>
+		<br>
+		<br>
+		<!--.number 将用户的输入值转为数值类型-->
+		<input v-model.number="age" type="number"/> <label>{{age}}</label>
+		<br>
+		<br>
+		<!-- .trim 自动过滤用户输入的首尾空白字符-->
+		<input v-model.trim="content"/><label>{{content}}</label>
+	</div>
+
 	<script type="text/javascript">
 		var app=new Vue({
 			el:"#app",
@@ -45,6 +86,26 @@
 				GetMessage:function(){
 					alert("The Multiline message is: "+this.message);
 				}
+			}
+		});
+
+		var app9=new Vue({
+			el:"#app-9",
+			data:{
+				toggle:"",
+				pick:true,
+				a:"zhou",
+				//a:{id:1,name:"zhou"},
+				selected:""
+			}
+		});
+
+		var app10=new Vue({
+			el:"#app-10",
+			data:{
+				name:"zhou",
+				age:45,
+				content:"zhou   zhou  "
 			}
 		});
 	</script>
