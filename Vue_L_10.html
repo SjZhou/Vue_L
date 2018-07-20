@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>Learn Vue 10</title>
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="Css/default.css"/>	
+</head>
+<body>
+	<div id="app">
+		<button-container></button-container>	
+		<button-container></button-container>	
+		<button-container></button-container>	
+	</div>
+
+	<script type="text/javascript">
+		Vue.component("button-container",{
+			data:function(){
+				return {
+					counter:0
+				}
+			},
+			template:"<button v-on:click='counter++' class='btn'> you click me {{counter}} times</button>"
+		})
+		new Vue({el:"#app"});
+	</script>
+
+</body>
+</html>

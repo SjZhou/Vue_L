@@ -14,7 +14,7 @@ div p.p_padding{
 	padding: 15px 0 10px ;
 }
 .btn{
-	width: 100px;
+	min-width: 100px;
 	text-align: center;
 	line-height: 30px;
 	background: #544a4a;
