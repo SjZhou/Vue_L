@@ -44,7 +44,7 @@ div p.p_padding{
 .font_red{
 	color: red;
 }
-input[type='text'],select{
+input[type='text'],input[type='number'],select	{
 	width: 200px;
 	height: 35px;
 	line-height: 35px;
