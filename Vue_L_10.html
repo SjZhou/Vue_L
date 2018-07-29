@@ -9,12 +9,41 @@
 </head>
 <body>
 	<div id="app">
+		<button-con v-bind:counter="counter"></button-con>
+		<button-con v-bind:counter="counter"></button-con>
+	</div>
+
+
+	<div id="app-1">
 		<button-container></button-container>	
 		<button-container></button-container>	
 		<button-container></button-container>	
 	</div>
 
+	<div id="app-2">
+		<blog-post title="My journey with Vue." ids="1"></blog-post>
+		<blog-post title="Blogging with Vue." ids="2"></blog-post>
+		<blog-post title="Why Vue is so fun." ids="3"></blog-post>
+	</div>
+
+	<div id="app-3">
+		<blog-msg v-for="item in items" v-bind:title="item.title" v-bind:data-id="item.id"></blog-msg>
+	</div>
+
+ 
 	<script type="text/javascript">
+		Vue.component("button-con",{
+			props:["counter"],
+			template:"<button v-on:click='counter++'  class='btn'> you click me {{counter}} times</button>"
+		});
+		new Vue({
+			el:"#app",
+			data:{
+				counter:0
+			}
+		});
+
+
 		Vue.component("button-container",{
 			data:function(){
 				return {
@@ -22,8 +51,30 @@
 				}
 			},
 			template:"<button v-on:click='counter++' class='btn'> you click me {{counter}} times</button>"
-		})
-		new Vue({el:"#app"});
+		});
+		new Vue({el:"#app-1"});
+
+		Vue.component("blog-post",{
+			props:["title","ids"],
+			template:"<h3 v-bind:data-id='ids'>{{title}}</h3>"
+		});
+		new Vue({el:"#app-2"});
+
+		Vue.component("blog-msg",{
+			props:["title"],
+			template:"<h3>{{title}}</h3>"
+		});
+		new Vue({
+			el:"#app-3",
+			data:{
+				items:[
+					{id:1,title:"My journey with Vue."},
+					{id:2,title:"Blogging with Vue."},
+					{id:3,title:"Why Vue is so fun."}
+				]
+			}
+		});
+		
 	</script>
 
 </body>
