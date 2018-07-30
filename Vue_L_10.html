@@ -30,6 +30,38 @@
 		<blog-msg v-for="item in items" v-bind:title="item.title" v-bind:data-id="item.id"></blog-msg>
 	</div>
 
+	<div id="app-4">
+		<blog-div v-for="post in posts" v-bind:post="post"></blog-div>
+	</div>
+
+	<div id="app-5" class="clearfix">
+		5
+		<div v-bind:style="{'font-Size':postFontSize+'em'}">
+			<blog-post-msg v-for="post in posts" v-bind:post="post" v-on:enlarge-text="postFontSize+=0.1" v-on:reduce-text="postFontSize-=0.1"></blog-post-msg>
+		</div>
+	</div>
+
+	<div id="app-6" class="clearfix">
+		6
+		<div v-bind:style="{'font-Size':postFontSize+'em'}">
+			<blog-post-m v-for="post in posts" v-bind:post="post" v-on:enlarge-text="postFontSize+=$event" v-on:reduce-text="postFontSize-=$event"></blog-post-m>
+		</div>
+	</div>
+
+	<div id="app-7">
+		7
+		<div v-bind:style="{'font-Size':postFontSize+'em'}">
+			<blog-p v-for="post in posts" v-bind:post="post" v-on:enlarge-text="onEnlargeText" v-on:reduce-text="onReduceText"></blog-p>
+		</div>
+	</div>
+
+	<div id="app-8">
+		v-model
+		<div>
+			<input v-model="searchText"/>
+			<input v-bind:value="searchText"  v-on:input="searchText = $event.target.value"/>
+		</div>
+	</div>
  
 	<script type="text/javascript">
 		Vue.component("button-con",{
@@ -72,6 +104,103 @@
 					{id:2,title:"Blogging with Vue."},
 					{id:3,title:"Why Vue is so fun."}
 				]
+			}
+		});
+
+		Vue.component("blog-div",{
+			props:["post"],
+			template:"<h3 v-bind:data-id='post.id'>{{post.title}}</h3>"
+		});
+		new Vue({
+			el:"#app-4",
+			data:{
+				posts:[
+					{id:1,title:"My journey with Vue."},
+					{id:2,title:"Blogging with Vue."},
+					{id:3,title:"Why Vue is so fun."}
+				]
+			}
+		});
+
+		Vue.component("blog-post-msg",{
+			props:["post"],
+			template:`
+				<div class="blog-post">
+					<h3>{{post.title}}</h3>
+					<button class="btn" v-on:click="$emit('enlarge-text')">Enlarge text</button>
+					<button class="btn" v-on:click="$emit('reduce-text')">Reduce text</button>
+				</div>
+			`
+		});
+		new Vue({
+			el:"#app-5",
+			data:{
+			  	posts:[
+			  		{id:1,title:"My journey with Vue."},
+			  		{id:2,title:"blogging with Vue."},
+			  		{id:3,title:"Why Vue is so fun."}
+			  	],
+			  	postFontSize:1
+			}
+		});
+
+		Vue.component("blog-post-m",{
+			props:["post"],
+			template:`
+				<div class="blog-post">
+					<h3>{{post.title}}</h3>
+					<button class="btn" v-on:click="$emit('enlarge-text',0.4)">Enlarge text</button>
+					<button class="btn" v-on:click="$emit('reduce-text',0.2)">Reduce text</button>
+				</div>
+			`
+		});
+		new Vue({
+			el:"#app-6",
+			data:{
+			  	posts:[
+			  		{id:1,title:"My journey with Vue."},
+			  		{id:2,title:"blogging with Vue."},
+			  		{id:3,title:"Why Vue is so fun."}
+			  	],
+			  	postFontSize:1
+			}
+		});
+
+		Vue.component("blog-p",{
+			props:['post'],
+			template:`
+				<div class="blog-post">
+					<h3>{{post.title}}</h3>
+					<button class="btn" v-on:click="$emit('enlarge-text',0.4)">Enlarge text</button>
+					<button class="btn" v-on:click="$emit('reduce-text',0.2)">Reduce text</button>
+				</div>
+			`
+		});
+		new Vue({
+			el:"#app-7",
+			data:{
+				posts:[
+			  		{id:1,title:"My journey with Vue."},
+			  		{id:2,title:"blogging with Vue."},
+			  		{id:3,title:"Why Vue is so fun."}
+			  	],
+			  	postFontSize:1
+			},
+			methods:{
+				onEnlargeText:function(largeAmount){
+					this.postFontSize+=largeAmount;
+				},
+				onReduceText:function(reduceAmount){
+					this.postFontSize-=reduceAmount;
+				}
+			}
+		});
+
+
+		var app8=new Vue({
+			el:"#app-8",
+			data:{
+				searchText:"zhou"
 			}
 		});
 		

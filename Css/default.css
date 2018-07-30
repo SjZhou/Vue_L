@@ -1,9 +1,19 @@
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: " ";
+}
+
+.clearfix:after {
+    clear: both;
+}
+
 div{
 	border: 1px solid #cdcdcd; 
 	line-height: 35px;
 	min-height: 35px;
-	margin: 10px;
-	width: 400px;
+	margin: 10px; 
+	max-width: 450px;
 	text-align: center;
 	padding: 5px;
 }
