@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>Learn Vue 12</title>
+	<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="Css/default.css"/>	
+</head>
+<body>
+	<div id="app">
+		<blog-post post-title='zhou' is-published='shu'></blog-post>
+	</div>
+
+	<div id="app-2">
+		<blog-p v-bind:title="post.title+' by '+ post.author"></blog-p>
+	</div>
+
+	<div id="app-3">
+		<div>
+			<p>传入一个数字</p>
+			<component-num v-bind:num='45'></component-num>
+			<component-num v-bind:num='post.number'></component-num>
+		</div>
+		<div>
+			<p>传入一个布尔值</p>
+			<component-boolen is-published></component-boolen>
+			<component-boolen v-bind:is-published='false'></component-boolen>
+			<component-boolen v-bind:is-published="post.isPublished"></component-boolen>
+		</div>
+		<div>
+			<p>传入一个数组</p>
+			<component-array v-bind:comment-ids="[23,24,56]"></component-array>
+			<component-array v-bind:comment-ids="post.commentIds"></component-array>
+		</div>
+			<div>
+			<p>传入一个对象</p>
+			<component-obj v-bind:author="{name:'z',age:12}"></component-obj>
+			<component-obj v-bind:author="post.author"></component-obj>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		Vue.component("blog-post",{
+			props:["postTitle","isPublished"],
+			template:"<h3>{{postTitle}} - {{isPublished}}</h3>"
+		});
+		new Vue({
+			el:"#app"
+		});
+
+		Vue.component("blog-p",{
+			props:['title'],
+			template:"<h3>{{title}}</h3>"
+		});
+		new Vue({
+			el:"#app-2",
+			data:{
+				post:{
+					title:"My journey with Vue.",
+					author:'zz'
+				}
+			}
+		});
+
+		Vue.component("component-num",{
+			props:["num"],
+			template:"<h3>{{num}}</h3>"
+		});
+		Vue.component("component-boolen",{
+			props:["isPublished"],
+			template:"<h3> get boolen value is:{{isPublished}}</h3>"
+		});
+		Vue.component("component-obj",{
+			props:["author"],
+			template:"<h3> the author is {{author.name}}.Age is {{author.age}}</h3>"
+		});
+
+		new Vue({
+			el:"#app-3",
+			data:{
+				post:{
+					number:233333,
+					isPublished:true,
+					commentIds:["123","456","789"],
+					author:{
+						name:'zz',
+						age:52
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>
