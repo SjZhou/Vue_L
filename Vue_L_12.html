@@ -40,6 +40,20 @@
 		</div>
 	</div>
 
+	<div id="app-4">
+		<p>单向数据流</p>
+		<div>
+			<component-d v-for="d in datas" v-bind:initial-counter='d'></component-d>
+		</div>
+		<div>
+			<component-f v-bind:size='size'></component-f>
+		</div>
+	</div>
+
+	<div id="app-5">
+
+	</div>
+
 	<script type="text/javascript">
 		Vue.component("blog-post",{
 			props:["postTitle","isPublished"],
@@ -90,6 +104,33 @@
 				}
 			}
 		});
+
+		Vue.component("component-d",{
+			props:["initialCounter"],
+			data:function(){
+				return{
+					counter:this.initialCounter
+				}
+			},
+			template:"<h3 v-on:click='counter++' style='cursor:pointer'>{{counter}}</h3>"
+		});
+		Vue.component("component-f",{
+			props:["size"],
+			computed:{
+				normalizeSize:function(){
+					return this.size.trim().toLowerCase()
+				}
+			},
+			template:"<input v-bind:value='normalizeSize'/>"
+		});
+		new Vue({
+			el:"#app-4",
+			data:{
+				datas:[1,2,3,4],
+				size:" zhou "
+			}
+		});	 
+
 	</script>
 </body>
 </html>
