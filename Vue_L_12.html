@@ -46,12 +46,20 @@
 			<component-d v-for="d in datas" v-bind:initial-counter='d'></component-d>
 		</div>
 		<div>
-			<component-f v-bind:size='size'></component-f>
+			<component-f v-bind:size='size' class='input'></component-f>
 		</div>
 	</div>
 
 	<div id="app-5">
+		<component-ff class='newclass' data-pick='111'></component-ff>
+	</div>
 
+	<div id="app-6">
+		<base-input
+		  v-model="username"
+		  class="username-input"
+		  placeholder="Enter your username"
+		></base-input>
 	</div>
 
 	<script type="text/javascript">
@@ -130,6 +138,35 @@
 				size:" zhou "
 			}
 		});	 
+
+		Vue.component("component-ff",{
+			template:"<input type='date' class='input'/>"
+		});
+		new Vue({
+			el:"#app-5"
+		})
+
+		Vue.component("base-input",{
+			inheritAttrs:false,
+			props:['label','value'],
+			template:`
+				<label>
+					{{label}}
+					<input v-bind="$attrs"
+					v-bind:value='value'
+					v-on:input="$emit('input',$event.target.value)"/>
+				</label>
+			`
+		});
+		new Vue({
+			el:"#app-6",
+			data:{
+				username:{
+					label:"用户名",
+					value:"zhou"
+				}
+			}
+		})
 
 	</script>
 </body>
